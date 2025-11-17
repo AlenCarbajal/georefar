@@ -38,11 +38,6 @@ get_geodata_dump <- function(entidad, formato, path_to_save = NULL) {
 
   check_internet()
 
-  valid_entidades <- c("provincias", "departamentos", "municipios",
-                       "localidades", "localidades-censales", "asentamientos",
-                       "calles", "cuadras")
-  valid_formatos <- c("csv", "json", "geojson", "ndjson")
-
   if (!entidad %in% valid_entidades) {
     stop(paste("Entidad no v\u00e1lida. Opciones disponibles:", paste(valid_entidades, collapse = ", ")))
   }

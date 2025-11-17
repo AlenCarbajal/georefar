@@ -1,10 +1,12 @@
-process_single_post_response <- function(response_obj, endpoint, num_queries_in_this_batch) {
+library(httr2)
+
+process_single_post_response <- function(response_obj, endpoint, batch_size) {
   # This function assumes response_obj is a successful httr2_response
-  parsed_content <- httr2::resp_body_json(response_obj, flatten = TRUE)
+  parsed_content <- resp_body_json(response_obj, flatten = TRUE)
 
   if (!"resultados" %in% names(parsed_content)) {
     url_info <- tryCatch(
-      httr2::resp_url(response_obj),
+      resp_url(response_obj),
       error = function(e) "unknown URL"
     )
     stop(paste0("La respuesta del POST para el endpoint '", endpoint, "' (URL: ", url_info, ") no contiene el campo 'resultados' esperado."), call. = FALSE)
@@ -62,9 +64,9 @@ process_single_post_response <- function(response_obj, endpoint, num_queries_in_
     #   dplyr::rename_with(.fn = function(x) {gsub(pattern = "\\\\$|\\\\.", replacement = "_", x = x)})
   }
 
-  if (nrow(processed_results) == 0 && num_queries_in_this_batch > 0) {
+  if (nrow(processed_results) == 0 && batch_size > 0) {
     # This warning applies to a single batch. The overall warning will be in the calling post_*_bulk function.
-    warning(paste0("Una tanda de ", num_queries_in_this_batch, " consultas POST para '", endpoint, "' devolvi\\u00f3 una lista vac\\u00eda o no se pudieron procesar sus resultados."), call. = FALSE)
+    warning(paste0("Una tanda de ", batch_size, " consultas POST para '", endpoint, "' devolvi\\u00f3 una lista vac\\u00eda o no se pudieron procesar sus resultados."), call. = FALSE)
   }
 
   return(processed_results)

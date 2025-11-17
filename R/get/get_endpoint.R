@@ -1,11 +1,12 @@
 library(httr2)
 
+
 get_endpoint <- function(endpoint, args) {
   check_internet()
   args_clean <- purrr::discard(args, is.null)
 
   if (!assertthat::noNA(args_clean)) {
-    stop(c('GET no admite NAs. Los par\u00e1metros siguientes tienen NAs:', sapply(names(args_clean[is.na(args_clean)]),
+    stop(c(err_msg(), sapply(names(args_clean[is.na(args_clean)]),
                                                                                    function(x) paste0(" ", x),
                                                                                    USE.NAMES = F)))
   }
