@@ -2,27 +2,55 @@ library(httr2)
 
 
 get_endpoint <- function(endpoint, args) {
+  
+  token <- Sys.getenv("GEOREFAR_TOKEN")
   check_internet()
-  args_clean <- purrr::discard(args, is.null)
 
+  # Validación de parámetros
+  args_clean <- purrr::discard(args, is.null)
+  valid_params <- VALID$PARAMS[[endpoint]]
+  errores <- c()
+
+  ## Agregar NAs a vector de errores si existen
   if (!assertthat::noNA(args_clean)) {
-    stop(c(err_msg(), sapply(names(args_clean[is.na(args_clean)]),
-                                                                                   function(x) paste0(" ", x),
-                                                                                   USE.NAMES = F)))
+    na_params <- names(args_clean[is.na(args_clean)])
+    errores <- c(
+      errores, 
+      sprintf(
+        ERR_MSGS$get_endpoint$NA_PARAMS,
+        paste(na_params, collapse = ", ")
+      )
+    )
   }
 
-  token <- Sys.getenv("GEOREFAR_TOKEN")
+  ## Agregar inválidos a vector de errores si existen
+  param_names <- names(args_clean)
+  valores_invalidos <- setdiff(param_names, valid_params)
+  if (length(valores_invalidos) > 0) {
+    errores <- c(
+      errores, 
+      sprintf(
+        ERR_MSGS$get_endpoint$INVALID_PARAMS, 
+        endpoint, 
+        paste(valores_invalidos, collapse = ", ")
+      )
+    )
+  }
+
+  ## Lanzar error si hay problemas
+  if (length(errores) > 0) {
+    stop(err_msg(), "\n ", paste(errores, collapse = "\n "), call. = FALSE)
+  }
 
   req <- request(paste0(base_url, endpoint)) |>
     req_url_query(!!!args_clean) |>
     req_error(is_error = ~ resp_status(.x) != 200,
-               body = httr2_error_handler)
+              body = httr2_error_handler)
 
   if (!is.null(token) && token != "") {
     req <- req |> req_auth_bearer_token(token)
   }
 
-  # Use req_perform() for synchronous behavior needed by get_endpoint
   response <- req_perform(req)
 
   parsed <- resp_body_json(response)
@@ -30,11 +58,11 @@ get_endpoint <- function(endpoint, args) {
   data_list <- parsed[[gsub(pattern = "-", replacement = "_", x = endpoint)]]
 
   if (is.null(data_list)) {
-    data_list <- list() # Ensure it's an empty list if the key wasn't found or was null
+    data_list <- list()
   }
 
   data <- data_list |>
-    purrr::modify_if(is.null, list) # Convert NULL elements within the list to list() for as_tibble
+    purrr::modify_if(is.null, list)
 
   if (length(data) == 0) {
     warning("La consulta devolvió una lista vacía", call. = FALSE)

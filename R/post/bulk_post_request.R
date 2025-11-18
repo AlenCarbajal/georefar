@@ -1,51 +1,15 @@
 library(httr2)
 
-check_list_of_lists <- function(query_list){
-  if (!is.list(queries_list) || !all(sapply(queries_list, is.list))) {
-    stop("'queries_list' debe ser una lista de listas.")
-  }
-  if (length(queries_list) == 0) {
-    warning("'queries_list' está vacía, no se realizarán consultas.")
-    return(dplyr::tibble())
-  }
-}
-
-check_params <- function(endpoint, params, query){
-  valid_params <- params[[endpoint]]
-  invalid_params <- setdiff(names(query), valid_params)
-    
-  if (length(invalid_params) > 0) {
-    warning(
-      paste0("Consulta ", i, " en 'queries_list' para 'departamentos' contiene par\u00e1metro(s) no reconocido(s): ",
-                    paste(invalid_params, collapse = ", "), ". ",
-                    "Par\u00e1metros v\u00e1lidos son: ", paste(valid_params, collapse = ", "), "."))
-  }
-}
-
-check_max <- function(query) {
-  current_max <- query$max
-  current_inicio <- query$inicio
-  
-  if (!is.null(current_max) && (!is.integer(current_max) || current_max < 0 || current_max > LIMIT_MAX)) {
-    stop(paste0("En la consulta ", i, ", el par\u00e1metro 'max' debe ser un n\u00famero entre 0 y ", LIMIT_MAX, "."))
-  }
-  if (!is.null(current_inicio) && (!is.integer(current_inicio) || current_inicio < 0)) {
-    stop(paste0("En la consulta ", i, ", el par\u00e1metro 'inicio' debe ser un n\u00famero positivo."))
-  }
-  if (!is.null(current_max) && !is.null(current_inicio) && (current_max + current_inicio > LIMIT_MAX_INICIO)) {
-    stop(paste0("En la consulta ", i, ", la suma de 'max' e 'inicio' no debe superar ", LIMIT_MAX_INICIO, "."))
-  }
-}
-
 bulk_post_request <- function(endpoint, queries_list, check_max = FALSE) {
   # Check de que es una lista de listas
   check_list_of_lists(queries_list)
 
   # Check parametros en cada consulta
-  queries_list.
   for (query in queries_list){
     check_params(endpoint, query)
-    if (check_max){ check_max(query) }
+    if (check_max == TRUE){ 
+      check_max(query) 
+    }
   }
 
   # Crear lotes
@@ -54,8 +18,16 @@ bulk_post_request <- function(endpoint, queries_list, check_max = FALSE) {
   # Check se crearon lotes
   if (length(query_batches) == 0){
     if(length(queries_list) > 0) {
-      warning(paste0("No se pudieron crear lotes de consultas para '", endpoint, "', aunque la lista de consultas no estaba vac\u00eda."), call. = FALSE)
+      warning(
+        sprintf(
+          ERR_MSGS$post$BULK_POST_REQUESTS$NO_BATCHES_CREATED,
+          endpoint
+        ), 
+        call. = FALSE
+      )
     }
+
+
     return(dplyr::tibble())
   }
 

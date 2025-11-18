@@ -30,3 +30,7 @@
 get_asentamientos <- function(id = NULL, nombre = NULL, provincia = NULL, departamento = NULL, municipio = NULL, localidad_censal = NULL, interseccion = NULL, orden = NULL, aplanar = TRUE, campos = NULL, max = NULL, inicio = NULL, exacto = NULL){
   get_endpoint(endpoint = "asentamientos", args = as.list(environment()))
 }
+
+post_asentamientos <- function(queries_list){
+  post_endpoint(endpoint = "asentamientos", queries_list = queries_list)
+}

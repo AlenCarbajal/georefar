@@ -26,6 +26,23 @@
 #' get_localidades(nombre = "PALERMO", provincia = "CIUDAD AUTONOMA DE BUENOS AIRES")
 #' }
 
-get_localidades <- function(id = NULL, nombre = NULL, provincia = NULL, departamento = NULL, municipio = NULL, interseccion = NULL, orden = NULL, aplanar = TRUE, campos = NULL, max = NULL, inicio = NULL, exacto = NULL){
-  get_endpoint(endpoint = "localidades", args = as.list(environment())
+get_localidades <- function(
+    id = NULL,
+    nombre = NULL, 
+    provincia = NULL, 
+    departamento = NULL, 
+    municipio = NULL, 
+    interseccion = NULL, 
+    orden = NULL, 
+    aplanar = TRUE, 
+    campos = NULL, 
+    max = NULL, 
+    inicio = NULL, 
+    exacto = NULL
+  ){
+  get_endpoint(endpoint = "localidades", args = as.list(environment()))
+}
+
+post_localidades <- function(queries_list){
+  post_endpoint(endpoint = "localidades", queries_list = queries_list)
 }
