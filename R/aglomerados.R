@@ -11,3 +11,7 @@ get_aglomerados <- function(
   ){
     get_endpoint(endpoint = "aglomerados", args = as.list(environment()))
 }
+
+post_aglomerados <- function(queries_list){
+  post_endpoint(endpoint = "aglomerados", queries_list = queries_list)
+}

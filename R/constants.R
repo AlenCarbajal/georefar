@@ -16,10 +16,10 @@ ERR_MSGS <- list(
   
   # Mensajes de error para get_endpoint
   get_endpoint = list(
-    NA_PARAMS        = "GET no admite NAs. Los parámetros siguientes tienen NAs:%s",
-    EMPTY_QUERY   = "La consulta devolvió una lista vacía",
-    BAD_STATUS    = "El servidor respondió con estado %d",
-    INVALID_PARAMS = "Parámetro(s) no reconocido(s) para el endpoint '%s': %s."
+    NA_PARAMS         = "GET no admite NAs. Los parámetros siguientes tienen NAs:%s",
+    EMPTY_QUERY       = "La consulta devolvió una lista vacía",
+    BAD_STATUS        = "El servidor respondió con estado %d",
+    INVALID_PARAMS    = "Parámetro(s) no reconocido(s) para el endpoint '%s': %s."
   ),
 
   # Mensajes de error para POST por lotes
@@ -35,46 +35,49 @@ ERR_MSGS <- list(
 )
 
 # Parámetros válidos por endpoint
-  BASE_VALID_PARAMS <- c('campos','aplanar','max','inicio','exacto','formato','orden')
-  UT_BASE_VALID_PARAMS <- BASE_VALID_PARAMS %+% c('id','nombre', 'interseccion')
+BASE_VALID_PARAMS <- c('campos','aplanar','max','inicio','exacto','formato','orden')
+UT_BASE_VALID_PARAMS <- BASE_VALID_PARAMS %+% c('id','nombre')
 
-  VALID <- list(
-    PARAMS = list(
-      provincias = UT_BASE_VALID_PARAMS,
-      municipios = UT_BASE_VALID_PARAMS %+% c('provincia'),
-      departamentos = UT_BASE_VALID_PARAMS %+% c('provincia'),
-      localidades_censales = UT_BASE_VALID_PARAMS %+% c('provincia','departamento','municipio'),
-      asentamientos = UT_BASE_VALID_PARAMS %+% c('provincia','departamento','municipio','localidad_censal'),
-      localidades = UT_BASE_VALID_PARAMS %+% c('provincia','departamento','municipio','localidad_censal'),
-      calles = BASE_VALID_PARAMS %+% c('provincia','departamento','localidad_censal','categoria'),
-      direcciones = BASE_VALID_PARAMS %+% c('provincia','departamento','localidad_censal','direccion','localidad'),
-      ubicacion = c('campos','aplanar','formato','lat','lon')
+VALID <- list(
+  PARAMS = list(
+    aglomerados                   = UT_BASE_VALID_PARAMS,
+
+    provincias                    = UT_BASE_VALID_PARAMS  %+% c('interseccion'),
+    departamentos                 = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion'),
+    municipios                    = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion'),
+    gobiernos_locales             = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion','categoria'),
+    
+    asentamientos                 = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio','localidad_censal','categoria'),
+    localidades                   = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio','localidad_censal'),
+    calles                        = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','localidad_censal','categoria'),
+
+    localidades_censales          = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio'),
+    fracciones_censales           = BASE_VALID_PARAMS     %+% c('id','provincia','departamento'),
+    radios_censales               = BASE_VALID_PARAMS     %+% c('id','provincia','departamento','fraccion_censal'),
+    
+    direcciones                   = BASE_VALID_PARAMS     %+% c('provincia','departamento','localidad_censal','direccion','localidad','desplazar'),
+    ubicacion                     = c('campos','aplanar','formato','lat','lon','division'),
+
+    establecimientos_educativos   = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','gestion'),
+    instituciones_universitarias  = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','gestion','universidad')
+  ),
+  ENTITIES = 
+    c(
+      'aglomerados',
+      'provincias',
+      'departamentos',
+      'municipios',
+      'gobiernos_locales',
+      'asentamientos',
+      'localidades',
+      'localidades_censales',
+      'fracciones_censales',
+      'radios_censales',
+      'calles',
+      'direcciones',
+      'ubicacion',
+      'establecimientos_educativos',
+      'instituciones_universitarias'
     ),
-    ENTITIES = 
-      c(
-        "provincias",
-        "departamentos",
-        "municipios",
-        "localidades",
-        "localidades-censales",
-        "asentamientos",
-        "calles",
-        "direcciones",
-        "ubicacion"
-      ),
-    FORMATS = c("csv", "json", "geojson", "ndjson") # TODO: verificar
-  )
-
-#' Devuelve un mensaje formateado
-#' @param key  clave dentro de err_msgs
-#' @param ...  valores para sprintf
-err_msg <- function(modulo, categoria, key, ...) {
-  if (!exists(categoria, ERR_MSGS))
-    stop("Categoría inexistente (key error): ", categoria)
-  mod_err_msgs <- ERR_MSGS[[modulo]]
-  cat_err_msgs <- mod_err_msgs[[categoria]]
-  
-  if (!exists(key, cat_err_msgs))
-    stop("Mensaje inexistente (key error): ", key)
-  do.call(sprintf, c(list(cat_err_msgs[[key]]), ...))
-}
+  FORMATS = c("csv", "json", "geojson", "ndjson") # TODO: verificar
+)
