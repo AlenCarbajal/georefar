@@ -54,19 +54,23 @@ bulk_post_request <- function(endpoint, queries_list, check_max = FALSE) {
       processed_results <- append(processed_results, list(processed_tibble))
     } else if (inherits(item, "error")) {
       has_errors <- TRUE
-      warning(paste0("Error en el lote ", i, " para '", endpoint, "': ", conditionMessage(item)), call. = FALSE)
+      warning(sprintf(ERR_MSGS$post$ERROR_LOTE,i, endpoint, conditionMessage(item)), call. = FALSE)
     } else {
       has_errors <- TRUE
-      warning(paste0("Error desconocido o respuesta inesperada en el lote ", i, " para '", endpoint, "'. Clase del objeto: ", class(item)[1]), call. = FALSE)
+      warning(paste0(ERR_MSGS$post$ERROR_DESCONOCIDO, i, endpoint, class(item)[1]), call. = FALSE)
     }
   }
 
   # Combinar resultados
   combined_results <- dplyr::bind_rows(processed_results)
-  if (nrow(combined_results) == 0 && length(queries_list) > 0 && !has_errors) {
-    warning(paste0("La consulta POST completa para '", endpoint, "' (", length(queries_list)," consultas originales en ", length(query_batches)," lotes) devolvi\u00f3 una lista vac\u00eda o no se pudieron procesar los resultados, aunque no se reportaron errores directos en los lotes."), call. = FALSE)
-  } else if (nrow(combined_results) == 0 && length(queries_list) > 0 && has_errors) {
-    warning(paste0("La consulta POST completa para '", endpoint, "' (", length(queries_list)," consultas originales en ", length(query_batches)," lotes) no produjo resultados y se encontraron errores en algunos lotes."), call. = FALSE)
+  if (nrow(combined_results) == 0 && length(queries_list) > 0){
+    err_text <- sprintf(ERR_MSGS$post$BASE_COMBINE_ERROR, endpoint, length(queries_list), length(query_batches))
+    if(!has_errors) {
+      err_text <- paste0(err_text, "devolvi\u00f3 una lista vac\u00eda o no se pudieron procesar los resultados, aunque no se reportaron errores directos en los lotes.")
+    } else if (nrow(combined_results) == 0 && length(queries_list) > 0 && has_errors) {
+      err_text <- paste0(err_text, " no produjo resultados y se encontraron errores en algunos lotes.")
+    }
+    warning(err_text, call. = FALSE)
   }
   return(combined_results)
 }

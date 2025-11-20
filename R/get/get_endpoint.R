@@ -65,7 +65,7 @@ get_endpoint <- function(endpoint, args) {
     purrr::modify_if(is.null, list)
 
   if (length(data) == 0) {
-    warning("La consulta devolvió una lista vacía", call. = FALSE)
+    warning(ERR_MSGS$get_endpoint$EMPTY_RESPOSE, call. = FALSE)
   }
 
   data |>

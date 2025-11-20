@@ -74,7 +74,7 @@ get_geodata_dump <- function(entidad, formato, path_to_save = NULL) {
     content_text <- resp_body_string(response, encoding = "UTF-8")
     if (formato == "csv") {
       return(utils::read.csv(text = content_text, stringsAsFactors = FALSE))
-    } else if (formato %in% c("json", "geojson", "ndjson")) {
+    } else if (formato %in% VALID$FORMATS) {
       return(jsonlite::fromJSON(content_text, flatten = TRUE))
     } else {
       warning("Formato no soportado para parseo directo, devolviendo contenido como texto.", call. = FALSE)

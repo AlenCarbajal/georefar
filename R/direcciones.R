@@ -26,6 +26,23 @@
 #' normalizar_direccion(direccion = "SAN MARTIN 100", provincia = "02", max = 5)
 #' }
 
-normalizar_direccion <- function(direccion, provincia = NULL, departamento = NULL, localidad_censal = NULL, localidad = NULL, orden = NULL, aplanar = TRUE, campos = NULL, max = NULL, inicio = NULL, exacto = NULL){
+normalizar_direccion <- function(
+    direccion, 
+    provincia = NULL, 
+    departamento = NULL, 
+    localidad_censal = NULL, 
+    localidad = NULL, 
+    orden = NULL,
+    aplanar = TRUE,
+    campos = NULL, 
+    max = NULL, 
+    inicio = NULL, 
+    exacto = NULL, 
+    desplazar = NULL
+  ){
   get_endpoint(endpoint = "direcciones", args = as.list(environment()))
+}
+
+post_normalizar_direccion <- function(queries_list){
+  post_endpoint(endpoint = "direcciones", queries_list = queries_list)
 }

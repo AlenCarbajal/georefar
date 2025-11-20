@@ -11,7 +11,10 @@ base_url <- "https://apis.datos.gob.ar/georef/api/"
 ERR_MSGS <- list(
   
   # Mensajes de error para get_endpoint
-  helpers = list(),
+  helpers = list(
+    NOT_LIST_OF_LISTS = "'queries_list' debe ser una lista de listas.",
+    EMPTY_QUERY_LIST = "'queries_list' está vacía, no se realizarán consultas."
+  ),
   
   
   # Mensajes de error para get_endpoint
@@ -19,17 +22,21 @@ ERR_MSGS <- list(
     NA_PARAMS         = "GET no admite NAs. Los parámetros siguientes tienen NAs:%s",
     EMPTY_QUERY       = "La consulta devolvió una lista vacía",
     BAD_STATUS        = "El servidor respondió con estado %d",
-    INVALID_PARAMS    = "Parámetro(s) no reconocido(s) para el endpoint '%s': %s."
+    INVALID_PARAMS    = "Parámetro(s) no reconocido(s) para el endpoint '%s': %s.",
+    EMPTY_RESPOSE     = "La consulta devolvió una lista vacía"
   ),
 
   # Mensajes de error para POST por lotes
   post = list(
     BULK_POST_REQUESTS = list(
-      NO_BATCHES_CREATED = "No se pudieron crear lotes de consultas para '%s', aunque la lista de consultas no estaba vacía.",
-      INVALID_PARAMS     = "Consulta %d en 'queries_list' para %s contiene parámetro(s) no reconocido(s): ",
-      MAX_PARAM          = "En la consulta %d, el parámetro 'max' debe ser un número entre 0 y %d.",
-      INICIO_PARAM       = "En la consulta %d, el parámetro 'inicio' debe ser un número positivo.",
-      MAX_INICIO_SUM     = "En la consulta %d, la suma de 'max' e 'inicio' no debe superar %d."
+      NO_BATCHES_CREATED    = "No se pudieron crear lotes de consultas para '%s', aunque la lista de consultas no estaba vacía.",
+      INVALID_PARAMS        = "Consulta %d en 'queries_list' para %s contiene parámetro(s) no reconocido(s): ",
+      MAX_PARAM             = "En la consulta %d, el parámetro 'max' debe ser un número entre 0 y %d.",
+      INICIO_PARAM          = "En la consulta %d, el parámetro 'inicio' debe ser un número positivo.",
+      MAX_INICIO_SUM        = "En la consulta %d, la suma de 'max' e 'inicio' no debe superar %d.",
+      BASE_COMBINE_ERROR    = "La consulta POST completa para '%s' (%d consultas originales en %d lotes)",
+      ERROR_LOTE            = "Error en el lote %d para '%s': %s",
+      ERROR_DESCONOCIDO     = "Error desconocido o respuesta inesperada en el lote %d para '%s'. Clase del objeto: %s"
     )
   )
 )

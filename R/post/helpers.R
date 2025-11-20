@@ -1,10 +1,13 @@
+ERR_MSGS <- ERR_MSGS$helpers
+
+
 check_list_of_lists <- function(queries_list){
     if (!is.list(queries_list) || !all(sapply(queries_list, is.list))) {
-    stop("'queries_list' debe ser una lista de listas.")
+        stop(ERR_MSGS$NOT_LIST_OF_LISTS)
     }
     if (length(queries_list) == 0) {
-    warning("'queries_list' está vacía, no se realizarán consultas.")
-    return(dplyr::tibble())
+        warning(ERR_MSGS$EMPTY_QUERY_LIST, call. = FALSE)
+        return(dplyr::tibble())
     }
 }
 

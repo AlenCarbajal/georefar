@@ -9,7 +9,6 @@ get_gobiernos_locales <- function(
     max = NULL,
     inicio = NULL,
     exacto = NULL,
-    formato = NULL,
     aplanar = TRUE
   ){
     get_endpoint(endpoint = "gobiernos-locales", args = as.list(environment()))
