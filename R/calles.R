@@ -25,11 +25,11 @@
 #' \dontrun{
 #' get_calles(provincia = "22", departamento = "007")
 #' }
-
 get_calles <- function(id = NULL, nombre = NULL, provincia = NULL, departamento = NULL, municipio = NULL, localidad_censal = NULL, interseccion = NULL, orden = NULL, aplanar = TRUE, campos = NULL, max = NULL, inicio = NULL, exacto = NULL){
   get_endpoint(endpoint = "calles", args = as.list(environment()))
 }
 
+#' @export
 post_calles <- function(queries_list){
-  post_endpoint(endpoint = "calles", queries_list = queries_list)
+  bulk_post_request(endpoint = "calles", queries_list = queries_list)
 }

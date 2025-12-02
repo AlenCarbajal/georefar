@@ -25,11 +25,11 @@
 #' \dontrun{
 #' get_localidades_censales(nombre = "VILLA GENERAL BELGRANO")
 #' }
-
 get_localidades_censales <- function(id = NULL, nombre = NULL, provincia = NULL, departamento = NULL, municipio = NULL, interseccion = NULL, orden = NULL, aplanar = TRUE, campos = NULL, max = NULL, inicio = NULL, exacto = NULL){
   get_endpoint(endpoint = "localidades-censales", args = as.list(environment()))
 }
 
+#'@export
 post_localidades_censales <- function(queries_list){
-  post_endpoint(endpoint = "localidades-censales", queries_list = queries_list)
+  bulk_post_request(endpoint = "localidades-censales", queries_list = queries_list)
 }

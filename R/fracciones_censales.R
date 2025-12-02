@@ -1,3 +1,4 @@
+#'@export
 get_fracciones_censales <- function(
     id = NULL,
     provincia = NULL,
@@ -12,6 +13,7 @@ get_fracciones_censales <- function(
     get_endpoint(endpoint = "fracciones-censales", args = as.list(environment()))
 }
 
+#'@export
 post_fracciones_censales <- function(queries_list){
-  post_endpoint(endpoint = "fracciones-censales", queries_list = queries_list)
+  bulk_post_request(endpoint = "fracciones-censales", queries_list = queries_list)
 }

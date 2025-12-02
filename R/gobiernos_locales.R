@@ -1,3 +1,4 @@
+#'@export
 get_gobiernos_locales <- function(
     id = NULL,
     nombre = NULL,
@@ -14,6 +15,7 @@ get_gobiernos_locales <- function(
     get_endpoint(endpoint = "gobiernos-locales", args = as.list(environment()))
 }
 
+#'@export
 post_gobiernos_locales <- function(queries_list){
-  post_endpoint(endpoint = "gobiernos-locales", queries_list = queries_list)
+  bulk_post_request(endpoint = "gobiernos-locales", queries_list = queries_list)
 }

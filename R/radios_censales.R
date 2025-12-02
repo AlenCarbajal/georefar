@@ -1,3 +1,4 @@
+#'@export
 get_radios_censales <- function(
     id = NULL,
     provincia = NULL,
@@ -11,4 +12,8 @@ get_radios_censales <- function(
     fraccion_censal = NULL
   ){
     get_endpoint(endpoint = "radios-censales", args = as.list(environment()))
+}
+
+post_radios_censales <- function(queries_list){
+  bulk_post_request(endpoint = "radios-censales", queries_list = queries_list)
 }

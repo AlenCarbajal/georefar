@@ -1,3 +1,4 @@
+#'@export
 get_instituciones_universitarias <- function(
     id = NULL,
     nombre = NULL,
@@ -15,6 +16,7 @@ get_instituciones_universitarias <- function(
     get_endpoint(endpoint = "instituciones-universitarias", args = as.list(environment()))
 }
 
+#'@export
 post_instituciones_universitarias <- function(queries_list){
-  post_endpoint(endpoint = "instituciones-universitarias", queries_list = queries_list)
+  bulk_post_request(endpoint = "instituciones-universitarias", queries_list = queries_list)
 }

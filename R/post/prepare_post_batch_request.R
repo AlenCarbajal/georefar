@@ -1,4 +1,4 @@
-are_post_batch_request <- function(endpoint, single_batch_queries_list) {
+prepare_post_batch_request <- function(endpoint, single_batch_queries_list) {
   token <- Sys.getenv("GEOREFAR_TOKEN")
   url <- paste0(base_url, endpoint)
 

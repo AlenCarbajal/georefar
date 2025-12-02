@@ -22,7 +22,6 @@
 #' \dontrun{
 #' get_provincias(nombre = "Neuquen")
 #' }
-
 get_provincias <- function(
     id = NULL,
     nombre = NULL,
@@ -37,6 +36,7 @@ get_provincias <- function(
     get_endpoint(endpoint = "provincias", args = as.list(environment()))
 }
 
+#'@export
 post_provincias <- function(queries_list){
-  post_endpoint(endpoint = "provincias", queries_list = queries_list)
+  bulk_post_request(endpoint = "provincias", queries_list = queries_list)
 }

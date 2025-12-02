@@ -1,3 +1,5 @@
+library(httr2)
+
 #' Descargar Datos Geográficos Completos
 #'
 #' Permite descargar listados completos de entidades geográficas en diversos formatos.
@@ -31,9 +33,6 @@
 #'   # Guardar departamentos en formato CSV
 #'   get_geodata_dump(entidad = "departamentos", formato = "csv", path_to_save = "deptos.csv")
 #' }
-
-library(httr2)
-
 get_geodata_dump <- function(entidad, formato, path_to_save = NULL) {
 
   check_internet()

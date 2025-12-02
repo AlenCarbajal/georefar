@@ -24,8 +24,6 @@
 #' \dontrun{
 #' get_municipios(provincia = "cordoba", max = 10)
 #' }
-#' 
-
 get_municipios <- function(
     id = NULL, 
     nombre = NULL, 
@@ -42,6 +40,7 @@ get_municipios <- function(
     get_endpoint(endpoint = "municipios", args = as.list(environment()))
 }
 
+#'@export
 post_municipios <- function(queries_list){
-    post_endpoint(endpoint = "municipios", queries_list = queries_list)
+    bulk_post_request(endpoint = "municipios", queries_list = queries_list)
 }

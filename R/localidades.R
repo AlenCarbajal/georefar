@@ -25,7 +25,6 @@
 #' \dontrun{
 #' get_localidades(nombre = "PALERMO", provincia = "CIUDAD AUTONOMA DE BUENOS AIRES")
 #' }
-
 get_localidades <- function(
     id = NULL,
     nombre = NULL, 
@@ -43,6 +42,7 @@ get_localidades <- function(
   get_endpoint(endpoint = "localidades", args = as.list(environment()))
 }
 
+#'@export
 post_localidades <- function(queries_list){
-  post_endpoint(endpoint = "localidades", queries_list = queries_list)
+  bulk_post_request(endpoint = "localidades", queries_list = queries_list)
 }

@@ -12,6 +12,9 @@ get_aglomerados <- function(
     get_endpoint(endpoint = "aglomerados", args = as.list(environment()))
 }
 
+
+#' @return devuelve un tibble con los resultados para cada query o 
+#' @export
 post_aglomerados <- function(queries_list){
-  post_endpoint(endpoint = "aglomerados", queries_list = queries_list)
+  bulk_post_request(endpoint = "aglomerados", queries_list = queries_list)
 }

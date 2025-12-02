@@ -44,5 +44,5 @@ normalizar_direccion <- function(
 }
 
 post_normalizar_direccion <- function(queries_list){
-  post_endpoint(endpoint = "direcciones", queries_list = queries_list)
+  bulk_post_request(endpoint = "direcciones", queries_list = queries_list)
 }
