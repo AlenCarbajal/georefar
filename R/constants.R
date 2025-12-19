@@ -58,15 +58,15 @@ VALID <- list(
     localidades                   = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio','localidad_censal'),
     calles                        = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','localidad_censal','categoria'),
 
-    localidades_censales          = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio'),
-    fracciones_censales           = c(BASE_VALID_PARAMS   , 'id','provincia','departamento'),
-    radios_censales               = c(BASE_VALID_PARAMS   , 'id','provincia','departamento','fraccion_censal'),
+    "localidades-censales"          = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio'),
+    "fracciones-censales"           = c(BASE_VALID_PARAMS   , 'id','provincia','departamento'),
+    "radios-censales"               = c(BASE_VALID_PARAMS   , 'id','provincia','departamento','fraccion_censal'),
     
     direcciones                   = c(BASE_VALID_PARAMS   , 'provincia','departamento','localidad_censal','direccion','localidad','desplazar'),
     ubicacion                     = c('campos','aplanar','formato','lat','lon','division'),
 
-    establecimientos_educativos   = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion'),
-    instituciones_universitarias  = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion','universidad')
+    "establecimientos-educativos"   = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion'),
+    "instituciones-universitarias"  = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion','universidad')
   ),
   ENTITIES = 
     c(
