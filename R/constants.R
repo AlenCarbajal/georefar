@@ -43,30 +43,30 @@ ERR_MSGS <- list(
 
 # Parámetros válidos por endpoint
 BASE_VALID_PARAMS <- c('campos','aplanar','max','inicio','exacto','formato','orden')
-UT_BASE_VALID_PARAMS <- BASE_VALID_PARAMS %+% c('id','nombre')
+UT_BASE_VALID_PARAMS <- c(BASE_VALID_PARAMS,'id','nombre')
 
 VALID <- list(
   PARAMS = list(
     aglomerados                   = UT_BASE_VALID_PARAMS,
 
-    provincias                    = UT_BASE_VALID_PARAMS  %+% c('interseccion'),
-    departamentos                 = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion'),
-    municipios                    = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion'),
-    gobiernos_locales             = UT_BASE_VALID_PARAMS  %+% c('provincia','interseccion','categoria'),
+    provincias                    = c(UT_BASE_VALID_PARAMS, 'interseccion'),
+    departamentos                 = c(UT_BASE_VALID_PARAMS, 'provincia','interseccion'),
+    municipios                    = c(UT_BASE_VALID_PARAMS, 'provincia','interseccion'),
+    gobiernos_locales             = c(UT_BASE_VALID_PARAMS, 'provincia','interseccion','categoria'),
     
-    asentamientos                 = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio','localidad_censal','categoria'),
-    localidades                   = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio','localidad_censal'),
-    calles                        = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','localidad_censal','categoria'),
+    asentamientos                 = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio','localidad_censal','categoria'),
+    localidades                   = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio','localidad_censal'),
+    calles                        = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','localidad_censal','categoria'),
 
-    localidades_censales          = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','municipio'),
-    fracciones_censales           = BASE_VALID_PARAMS     %+% c('id','provincia','departamento'),
-    radios_censales               = BASE_VALID_PARAMS     %+% c('id','provincia','departamento','fraccion_censal'),
+    localidades_censales          = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','municipio'),
+    fracciones_censales           = c(BASE_VALID_PARAMS   , 'id','provincia','departamento'),
+    radios_censales               = c(BASE_VALID_PARAMS   , 'id','provincia','departamento','fraccion_censal'),
     
-    direcciones                   = BASE_VALID_PARAMS     %+% c('provincia','departamento','localidad_censal','direccion','localidad','desplazar'),
+    direcciones                   = c(BASE_VALID_PARAMS   , 'provincia','departamento','localidad_censal','direccion','localidad','desplazar'),
     ubicacion                     = c('campos','aplanar','formato','lat','lon','division'),
 
-    establecimientos_educativos   = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','gestion'),
-    instituciones_universitarias  = UT_BASE_VALID_PARAMS  %+% c('provincia','departamento','gestion','universidad')
+    establecimientos_educativos   = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion'),
+    instituciones_universitarias  = c(UT_BASE_VALID_PARAMS, 'provincia','departamento','gestion','universidad')
   ),
   ENTITIES = 
     c(

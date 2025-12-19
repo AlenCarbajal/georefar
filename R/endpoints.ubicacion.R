@@ -18,7 +18,7 @@
 #' get_ubicacion()
 #' }
 get_ubicacion <- function(lat, lon, aplanar = TRUE, campos = NULL, formato = NULL){
-  get_endpoint(endpoint = "ubicacion", args = as.list(environment(())))
+  get_endpoint(endpoint = "ubicacion", args = as.list(environment()))
 }
 
 #'@export
