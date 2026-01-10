@@ -44,7 +44,7 @@ get_endpoint <- function(endpoint, args) {
 
   req <- request(paste0(base_url, endpoint)) |>
     req_url_query(!!!args_clean) |>
-    req_error(is_error = ~ resp_status(.x) != 200,
+    httr2::req_error(is_error = ~ resp_status(.x) != 200,
               body = httr2_error_handler)
 
   if (!is.null(token) && token != "") {

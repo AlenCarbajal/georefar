@@ -50,10 +50,10 @@ get_geodata_dump <- function(entidad, formato, path_to_save = NULL) {
   token <- Sys.getenv("GEOREFAR_TOKEN")
 
   req <- request(url) |>
-    req_error(is_error = ~ resp_status(.x) != 200, body = httr2_error_handler)
+    httr2::req_error(is_error = ~ resp_status(.x) != 200, body = httr2_error_handler)
 
   if (!is.null(token) && token != "") {
-    req <- req |> req_auth_bearer_token(token)
+    req <- req |> httr2::req_auth_bearer_token(token)
   }
 
   response <- req_perform(req)
