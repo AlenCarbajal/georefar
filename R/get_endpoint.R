@@ -1,6 +1,3 @@
-library(httr2)
-
-
 get_endpoint <- function(endpoint, args) {
   
   token <- Sys.getenv("GEOREFAR_TOKEN")
@@ -43,7 +40,7 @@ get_endpoint <- function(endpoint, args) {
   }
 
   req <- request(paste0(base_url, endpoint)) |>
-    req_url_query(!!!args_clean) |>
+    httr2::req_url_query(!!!args_clean) |>
     httr2::req_error(is_error = ~ resp_status(.x) != 200,
               body = httr2_error_handler)
 
@@ -51,9 +48,9 @@ get_endpoint <- function(endpoint, args) {
     req <- req |> req_auth_bearer_token(token)
   }
 
-  response <- req_perform(req)
+  response <- httr2::req_perform(req)
 
-  parsed <- resp_body_json(response)
+  parsed <- httr2::resp_body_json(response)
 
   data_list <- parsed[[gsub(pattern = "-", replacement = "_", x = endpoint)]]
 
