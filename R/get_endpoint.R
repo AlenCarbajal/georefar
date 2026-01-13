@@ -39,7 +39,7 @@ get_endpoint <- function(endpoint, args) {
     stop(err_msg(), "\n ", paste(errores, collapse = "\n "), call. = FALSE)
   }
 
-  req <- request(paste0(base_url, endpoint)) |>
+  req <- httr2::request(paste0(base_url, endpoint)) |>
     httr2::req_url_query(!!!args_clean) |>
     httr2::req_error(is_error = ~ resp_status(.x) != 200,
               body = httr2_error_handler)
