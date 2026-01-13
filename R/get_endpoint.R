@@ -41,11 +41,11 @@ get_endpoint <- function(endpoint, args) {
 
   req <- httr2::request(paste0(base_url, endpoint)) |>
     httr2::req_url_query(!!!args_clean) |>
-    httr2::req_error(is_error = ~ resp_status(.x) != 200,
+    httr2::req_error(is_error = ~ httr2::resp_status(.x) != 200,
               body = httr2_error_handler)
 
   if (!is.null(token) && token != "") {
-    req <- req |> req_auth_bearer_token(token)
+    req <- req |> httr2::req_auth_bearer_token(token)
   }
 
   response <- httr2::req_perform(req)
